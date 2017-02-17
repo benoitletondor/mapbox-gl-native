@@ -180,59 +180,31 @@ struct TextOptional : LayoutProperty<bool> {
     static bool defaultValue() { return false; }
 };
 
-struct IconOpacity : PaintProperty<float> {
+struct SymbolOpacity : PaintProperty<float> {
     static float defaultValue() { return 1; }
 };
 
-struct IconColor : PaintProperty<Color> {
+struct SymbolColor : PaintProperty<Color> {
     static Color defaultValue() { return Color::black(); }
 };
 
-struct IconHaloColor : PaintProperty<Color> {
+struct SymbolHaloColor : PaintProperty<Color> {
     static Color defaultValue() { return {}; }
 };
 
-struct IconHaloWidth : PaintProperty<float> {
+struct SymbolHaloWidth : PaintProperty<float> {
     static float defaultValue() { return 0; }
 };
 
-struct IconHaloBlur : PaintProperty<float> {
+struct SymbolHaloBlur : PaintProperty<float> {
     static float defaultValue() { return 0; }
 };
 
-struct IconTranslate : PaintProperty<std::array<float, 2>> {
+struct SymbolTranslate : PaintProperty<std::array<float, 2>> {
     static std::array<float, 2> defaultValue() { return {{ 0, 0 }}; }
 };
 
-struct IconTranslateAnchor : PaintProperty<TranslateAnchorType> {
-    static TranslateAnchorType defaultValue() { return TranslateAnchorType::Map; }
-};
-
-struct TextOpacity : PaintProperty<float> {
-    static float defaultValue() { return 1; }
-};
-
-struct TextColor : PaintProperty<Color> {
-    static Color defaultValue() { return Color::black(); }
-};
-
-struct TextHaloColor : PaintProperty<Color> {
-    static Color defaultValue() { return {}; }
-};
-
-struct TextHaloWidth : PaintProperty<float> {
-    static float defaultValue() { return 0; }
-};
-
-struct TextHaloBlur : PaintProperty<float> {
-    static float defaultValue() { return 0; }
-};
-
-struct TextTranslate : PaintProperty<std::array<float, 2>> {
-    static std::array<float, 2> defaultValue() { return {{ 0, 0 }}; }
-};
-
-struct TextTranslateAnchor : PaintProperty<TranslateAnchorType> {
+struct SymbolTranslateAnchor : PaintProperty<TranslateAnchorType> {
     static TranslateAnchorType defaultValue() { return TranslateAnchorType::Map; }
 };
 
@@ -274,20 +246,13 @@ class SymbolLayoutProperties : public LayoutProperties<
 > {};
 
 class SymbolPaintProperties : public PaintProperties<
-    IconOpacity,
-    IconColor,
-    IconHaloColor,
-    IconHaloWidth,
-    IconHaloBlur,
-    IconTranslate,
-    IconTranslateAnchor,
-    TextOpacity,
-    TextColor,
-    TextHaloColor,
-    TextHaloWidth,
-    TextHaloBlur,
-    TextTranslate,
-    TextTranslateAnchor
+    SymbolOpacity,
+    SymbolColor,
+    SymbolHaloColor,
+    SymbolHaloWidth,
+    SymbolHaloBlur,
+    SymbolTranslate,
+    SymbolTranslateAnchor
 > {};
 
 } // namespace style

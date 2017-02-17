@@ -28,7 +28,8 @@ std::unique_ptr<Layer> SymbolLayer::Impl::clone() const {
 std::unique_ptr<Layer> SymbolLayer::Impl::cloneRef(const std::string& id_) const {
     auto result = std::make_unique<SymbolLayer>(*this);
     result->impl->id = id_;
-    result->impl->paint = SymbolPaintProperties();
+    result->impl->iconPaint = SymbolPaintProperties();
+    result->impl->textPaint = SymbolPaintProperties();
     return std::move(result);
 }
 
@@ -547,18 +548,18 @@ PropertyValue<float> SymbolLayer::getDefaultIconOpacity() {
 }
 
 PropertyValue<float> SymbolLayer::getIconOpacity(const optional<std::string>& klass) const {
-    return impl->paint.get<IconOpacity>(klass);
+    return impl->iconPaint.get<SymbolOpacity>(klass);
 }
 
 void SymbolLayer::setIconOpacity(PropertyValue<float> value, const optional<std::string>& klass) {
     if (value == getIconOpacity(klass))
         return;
-    impl->paint.set<IconOpacity>(value, klass);
+    impl->iconPaint.set<SymbolOpacity>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setIconOpacityTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<IconOpacity>(value, klass);
+    impl->iconPaint.setTransition<SymbolOpacity>(value, klass);
 }
 
 PropertyValue<Color> SymbolLayer::getDefaultIconColor() {
@@ -566,18 +567,18 @@ PropertyValue<Color> SymbolLayer::getDefaultIconColor() {
 }
 
 PropertyValue<Color> SymbolLayer::getIconColor(const optional<std::string>& klass) const {
-    return impl->paint.get<IconColor>(klass);
+    return impl->iconPaint.get<SymbolColor>(klass);
 }
 
 void SymbolLayer::setIconColor(PropertyValue<Color> value, const optional<std::string>& klass) {
     if (value == getIconColor(klass))
         return;
-    impl->paint.set<IconColor>(value, klass);
+    impl->iconPaint.set<SymbolColor>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setIconColorTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<IconColor>(value, klass);
+    impl->iconPaint.setTransition<SymbolColor>(value, klass);
 }
 
 PropertyValue<Color> SymbolLayer::getDefaultIconHaloColor() {
@@ -585,18 +586,18 @@ PropertyValue<Color> SymbolLayer::getDefaultIconHaloColor() {
 }
 
 PropertyValue<Color> SymbolLayer::getIconHaloColor(const optional<std::string>& klass) const {
-    return impl->paint.get<IconHaloColor>(klass);
+    return impl->iconPaint.get<SymbolHaloColor>(klass);
 }
 
 void SymbolLayer::setIconHaloColor(PropertyValue<Color> value, const optional<std::string>& klass) {
     if (value == getIconHaloColor(klass))
         return;
-    impl->paint.set<IconHaloColor>(value, klass);
+    impl->iconPaint.set<SymbolHaloColor>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setIconHaloColorTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<IconHaloColor>(value, klass);
+    impl->iconPaint.setTransition<SymbolHaloColor>(value, klass);
 }
 
 PropertyValue<float> SymbolLayer::getDefaultIconHaloWidth() {
@@ -604,18 +605,18 @@ PropertyValue<float> SymbolLayer::getDefaultIconHaloWidth() {
 }
 
 PropertyValue<float> SymbolLayer::getIconHaloWidth(const optional<std::string>& klass) const {
-    return impl->paint.get<IconHaloWidth>(klass);
+    return impl->iconPaint.get<SymbolHaloWidth>(klass);
 }
 
 void SymbolLayer::setIconHaloWidth(PropertyValue<float> value, const optional<std::string>& klass) {
     if (value == getIconHaloWidth(klass))
         return;
-    impl->paint.set<IconHaloWidth>(value, klass);
+    impl->iconPaint.set<SymbolHaloWidth>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setIconHaloWidthTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<IconHaloWidth>(value, klass);
+    impl->iconPaint.setTransition<SymbolHaloWidth>(value, klass);
 }
 
 PropertyValue<float> SymbolLayer::getDefaultIconHaloBlur() {
@@ -623,18 +624,18 @@ PropertyValue<float> SymbolLayer::getDefaultIconHaloBlur() {
 }
 
 PropertyValue<float> SymbolLayer::getIconHaloBlur(const optional<std::string>& klass) const {
-    return impl->paint.get<IconHaloBlur>(klass);
+    return impl->iconPaint.get<SymbolHaloBlur>(klass);
 }
 
 void SymbolLayer::setIconHaloBlur(PropertyValue<float> value, const optional<std::string>& klass) {
     if (value == getIconHaloBlur(klass))
         return;
-    impl->paint.set<IconHaloBlur>(value, klass);
+    impl->iconPaint.set<SymbolHaloBlur>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setIconHaloBlurTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<IconHaloBlur>(value, klass);
+    impl->iconPaint.setTransition<SymbolHaloBlur>(value, klass);
 }
 
 PropertyValue<std::array<float, 2>> SymbolLayer::getDefaultIconTranslate() {
@@ -642,18 +643,18 @@ PropertyValue<std::array<float, 2>> SymbolLayer::getDefaultIconTranslate() {
 }
 
 PropertyValue<std::array<float, 2>> SymbolLayer::getIconTranslate(const optional<std::string>& klass) const {
-    return impl->paint.get<IconTranslate>(klass);
+    return impl->iconPaint.get<SymbolTranslate>(klass);
 }
 
 void SymbolLayer::setIconTranslate(PropertyValue<std::array<float, 2>> value, const optional<std::string>& klass) {
     if (value == getIconTranslate(klass))
         return;
-    impl->paint.set<IconTranslate>(value, klass);
+    impl->iconPaint.set<SymbolTranslate>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setIconTranslateTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<IconTranslate>(value, klass);
+    impl->iconPaint.setTransition<SymbolTranslate>(value, klass);
 }
 
 PropertyValue<TranslateAnchorType> SymbolLayer::getDefaultIconTranslateAnchor() {
@@ -661,13 +662,13 @@ PropertyValue<TranslateAnchorType> SymbolLayer::getDefaultIconTranslateAnchor() 
 }
 
 PropertyValue<TranslateAnchorType> SymbolLayer::getIconTranslateAnchor(const optional<std::string>& klass) const {
-    return impl->paint.get<IconTranslateAnchor>(klass);
+    return impl->iconPaint.get<SymbolTranslateAnchor>(klass);
 }
 
 void SymbolLayer::setIconTranslateAnchor(PropertyValue<TranslateAnchorType> value, const optional<std::string>& klass) {
     if (value == getIconTranslateAnchor(klass))
         return;
-    impl->paint.set<IconTranslateAnchor>(value, klass);
+    impl->iconPaint.set<SymbolTranslateAnchor>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
@@ -676,17 +677,17 @@ PropertyValue<float> SymbolLayer::getDefaultTextOpacity() {
 }
 
 void SymbolLayer::setIconTranslateAnchorTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<IconTranslateAnchor>(value, klass);
+    impl->iconPaint.setTransition<SymbolTranslateAnchor>(value, klass);
 }
 
 PropertyValue<float> SymbolLayer::getTextOpacity(const optional<std::string>& klass) const {
-    return impl->paint.get<TextOpacity>(klass);
+    return impl->textPaint.get<SymbolOpacity>(klass);
 }
 
 void SymbolLayer::setTextOpacity(PropertyValue<float> value, const optional<std::string>& klass) {
     if (value == getTextOpacity(klass))
         return;
-    impl->paint.set<TextOpacity>(value, klass);
+    impl->textPaint.set<SymbolOpacity>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
@@ -695,22 +696,22 @@ PropertyValue<Color> SymbolLayer::getDefaultTextColor() {
 }
 
 void SymbolLayer::setTextOpacityTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<TextOpacity>(value, klass);
+    impl->textPaint.setTransition<SymbolOpacity>(value, klass);
 }
 
 PropertyValue<Color> SymbolLayer::getTextColor(const optional<std::string>& klass) const {
-    return impl->paint.get<TextColor>(klass);
+    return impl->textPaint.get<SymbolColor>(klass);
 }
 
 void SymbolLayer::setTextColor(PropertyValue<Color> value, const optional<std::string>& klass) {
     if (value == getTextColor(klass))
         return;
-    impl->paint.set<TextColor>(value, klass);
+    impl->textPaint.set<SymbolColor>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setTextColorTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<TextColor>(value, klass);
+    impl->textPaint.setTransition<SymbolColor>(value, klass);
 }
 
 PropertyValue<Color> SymbolLayer::getDefaultTextHaloColor() {
@@ -718,18 +719,18 @@ PropertyValue<Color> SymbolLayer::getDefaultTextHaloColor() {
 }
 
 PropertyValue<Color> SymbolLayer::getTextHaloColor(const optional<std::string>& klass) const {
-    return impl->paint.get<TextHaloColor>(klass);
+    return impl->textPaint.get<SymbolHaloColor>(klass);
 }
 
 void SymbolLayer::setTextHaloColor(PropertyValue<Color> value, const optional<std::string>& klass) {
     if (value == getTextHaloColor(klass))
         return;
-    impl->paint.set<TextHaloColor>(value, klass);
+    impl->textPaint.set<SymbolHaloColor>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setTextHaloColorTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<TextHaloColor>(value, klass);
+    impl->textPaint.setTransition<SymbolHaloColor>(value, klass);
 }
 
 PropertyValue<float> SymbolLayer::getDefaultTextHaloWidth() {
@@ -737,18 +738,18 @@ PropertyValue<float> SymbolLayer::getDefaultTextHaloWidth() {
 }
 
 PropertyValue<float> SymbolLayer::getTextHaloWidth(const optional<std::string>& klass) const {
-    return impl->paint.get<TextHaloWidth>(klass);
+    return impl->textPaint.get<SymbolHaloWidth>(klass);
 }
 
 void SymbolLayer::setTextHaloWidth(PropertyValue<float> value, const optional<std::string>& klass) {
     if (value == getTextHaloWidth(klass))
         return;
-    impl->paint.set<TextHaloWidth>(value, klass);
+    impl->textPaint.set<SymbolHaloWidth>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setTextHaloWidthTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<TextHaloWidth>(value, klass);
+    impl->textPaint.setTransition<SymbolHaloWidth>(value, klass);
 }
 
 PropertyValue<float> SymbolLayer::getDefaultTextHaloBlur() {
@@ -756,18 +757,18 @@ PropertyValue<float> SymbolLayer::getDefaultTextHaloBlur() {
 }
 
 PropertyValue<float> SymbolLayer::getTextHaloBlur(const optional<std::string>& klass) const {
-    return impl->paint.get<TextHaloBlur>(klass);
+    return impl->textPaint.get<SymbolHaloBlur>(klass);
 }
 
 void SymbolLayer::setTextHaloBlur(PropertyValue<float> value, const optional<std::string>& klass) {
     if (value == getTextHaloBlur(klass))
         return;
-    impl->paint.set<TextHaloBlur>(value, klass);
+    impl->textPaint.set<SymbolHaloBlur>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setTextHaloBlurTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<TextHaloBlur>(value, klass);
+    impl->textPaint.setTransition<SymbolHaloBlur>(value, klass);
 }
 
 PropertyValue<std::array<float, 2>> SymbolLayer::getDefaultTextTranslate() {
@@ -775,18 +776,18 @@ PropertyValue<std::array<float, 2>> SymbolLayer::getDefaultTextTranslate() {
 }
 
 PropertyValue<std::array<float, 2>> SymbolLayer::getTextTranslate(const optional<std::string>& klass) const {
-    return impl->paint.get<TextTranslate>(klass);
+    return impl->textPaint.get<SymbolTranslate>(klass);
 }
 
 void SymbolLayer::setTextTranslate(PropertyValue<std::array<float, 2>> value, const optional<std::string>& klass) {
     if (value == getTextTranslate(klass))
         return;
-    impl->paint.set<TextTranslate>(value, klass);
+    impl->textPaint.set<SymbolTranslate>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setTextTranslateTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<TextTranslate>(value, klass);
+    impl->textPaint.setTransition<SymbolTranslate>(value, klass);
 }
 
 PropertyValue<TranslateAnchorType> SymbolLayer::getDefaultTextTranslateAnchor() {
@@ -794,18 +795,18 @@ PropertyValue<TranslateAnchorType> SymbolLayer::getDefaultTextTranslateAnchor() 
 }
 
 PropertyValue<TranslateAnchorType> SymbolLayer::getTextTranslateAnchor(const optional<std::string>& klass) const {
-    return impl->paint.get<TextTranslateAnchor>(klass);
+    return impl->textPaint.get<SymbolTranslateAnchor>(klass);
 }
 
 void SymbolLayer::setTextTranslateAnchor(PropertyValue<TranslateAnchorType> value, const optional<std::string>& klass) {
     if (value == getTextTranslateAnchor(klass))
         return;
-    impl->paint.set<TextTranslateAnchor>(value, klass);
+    impl->textPaint.set<SymbolTranslateAnchor>(value, klass);
     impl->observer->onLayerPaintPropertyChanged(*this);
 }
 
 void SymbolLayer::setTextTranslateAnchorTransition(const TransitionOptions& value, const optional<std::string>& klass) {
-    impl->paint.setTransition<TextTranslateAnchor>(value, klass);
+    impl->textPaint.setTransition<SymbolTranslateAnchor>(value, klass);
 }
 
 } // namespace style

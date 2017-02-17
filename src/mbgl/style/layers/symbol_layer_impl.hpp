@@ -58,7 +58,8 @@ public:
     SymbolPropertyValues textPropertyValues(const SymbolLayoutProperties::Evaluated&) const;
 
     SymbolLayoutProperties layout;
-    SymbolPaintProperties paint;
+    SymbolPaintProperties iconPaint;
+    SymbolPaintProperties textPaint;
 
     float iconSize = 1.0f;
     float textSize = 16.0f;

@@ -51,7 +51,9 @@ public:
 
     State state = Pending;
 
-    std::unordered_map<std::string, style::SymbolPaintProperties::Evaluated> layerPaintProperties;
+    std::unordered_map<std::string,
+        std::pair<style::SymbolPaintProperties::Evaluated,
+                  style::SymbolPaintProperties::Evaluated>> layerPaintProperties;
 
 private:
     void addFeature(const SymbolFeature&,

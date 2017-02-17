@@ -33,7 +33,9 @@ void Painter::renderSymbol(PaintParameters& parameters,
     auto draw = [&] (auto& program,
                      auto&& uniformValues,
                      const auto& buffers,
-                     const SymbolPropertyValues& values_)
+                     const SymbolPropertyValues& values_,
+                     const auto& binders,
+                     const SymbolPaintProperties& properties)
     {
         // We clip symbols to their tile extent in still mode.
         const bool needsClipping = frame.mapMode == MapMode::Still;
@@ -52,8 +54,8 @@ void Painter::renderSymbol(PaintParameters& parameters,
             *buffers.vertexBuffer,
             *buffers.indexBuffer,
             buffers.segments,
-            bucket.paintPropertyBinders.at(layer.getID()),
-            layer.impl->paint.evaluated,
+            binders,
+            properties.evaluated,
             state.getZoom()
         );
     };
@@ -73,20 +75,26 @@ void Painter::renderSymbol(PaintParameters& parameters,
                 draw(parameters.programs.symbolIconSDF,
                      SymbolSDFProgram::haloUniformValues(values, texsize, pixelsToGLUnits, tile, state, frame.pixelRatio),
                      bucket.icon,
-                     values);
+                     values,
+                     bucket.paintPropertyBinders.at(layer.getID()).first,
+                     layer.impl->iconPaint);
             }
 
             if (values.hasForeground()) {
                 draw(parameters.programs.symbolIconSDF,
                      SymbolSDFProgram::foregroundUniformValues(values, texsize, pixelsToGLUnits, tile, state, frame.pixelRatio),
                      bucket.icon,
-                     values);
+                     values,
+                     bucket.paintPropertyBinders.at(layer.getID()).first,
+                     layer.impl->iconPaint);
             }
         } else {
             draw(parameters.programs.symbolIcon,
                  SymbolIconProgram::uniformValues(values, texsize, pixelsToGLUnits, tile, state),
                  bucket.icon,
-                 values);
+                 values,
+                 bucket.paintPropertyBinders.at(layer.getID()).first,
+                 layer.impl->iconPaint);
         }
     }
 
@@ -101,14 +109,18 @@ void Painter::renderSymbol(PaintParameters& parameters,
             draw(parameters.programs.symbolGlyph,
                  SymbolSDFProgram::haloUniformValues(values, texsize, pixelsToGLUnits, tile, state, frame.pixelRatio),
                  bucket.text,
-                 values);
+                 values,
+                 bucket.paintPropertyBinders.at(layer.getID()).second,
+                 layer.impl->textPaint);
         }
 
         if (values.hasForeground()) {
             draw(parameters.programs.symbolGlyph,
                  SymbolSDFProgram::foregroundUniformValues(values, texsize, pixelsToGLUnits, tile, state, frame.pixelRatio),
                  bucket.text,
-                 values);
+                 values,
+                 bucket.paintPropertyBinders.at(layer.getID()).second,
+                 layer.impl->textPaint);
         }
     }
 

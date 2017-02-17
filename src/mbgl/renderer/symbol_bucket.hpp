@@ -17,7 +17,9 @@ namespace mbgl {
 class SymbolBucket : public Bucket {
 public:
     SymbolBucket(style::SymbolLayoutProperties::Evaluated,
-                 const std::unordered_map<std::string, style::SymbolPaintProperties::Evaluated>&,
+                 const std::unordered_map<std::string, std::pair<
+                    style::SymbolPaintProperties::Evaluated,
+                    style::SymbolPaintProperties::Evaluated>>&,
                  float zoom,
                  bool sdfIcons,
                  bool iconsNeedLinear);
@@ -33,7 +35,9 @@ public:
     const bool sdfIcons;
     const bool iconsNeedLinear;
 
-    std::unordered_map<std::string, SymbolIconProgram::PaintPropertyBinders> paintPropertyBinders;
+    std::unordered_map<std::string, std::pair<
+        SymbolIconProgram::PaintPropertyBinders,
+        SymbolSDFProgram::PaintPropertyBinders>> paintPropertyBinders;
 
     struct TextBuffer {
         gl::VertexVector<SymbolLayoutVertex> vertices;
