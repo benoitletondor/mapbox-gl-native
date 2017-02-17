@@ -69,16 +69,16 @@ void Painter::renderSymbol(PaintParameters& parameters,
         const Size texsize = atlas.getSize();
 
         if (bucket.sdfIcons) {
-            if (values.hasHalo()) {
+            if (values.hasHalo) {
                 draw(parameters.programs.symbolIconSDF,
-                     SymbolSDFProgram::haloUniformValues(values, texsize, pixelsToGLUnits, tile, state, frame.pixelRatio),
+                     SymbolSDFProgram::haloUniformValues(values, texsize, pixelsToGLUnits, tile, state),
                      bucket.icon,
                      values);
             }
 
-            if (values.hasForeground()) {
+            if (values.hasFill) {
                 draw(parameters.programs.symbolIconSDF,
-                     SymbolSDFProgram::foregroundUniformValues(values, texsize, pixelsToGLUnits, tile, state, frame.pixelRatio),
+                     SymbolSDFProgram::foregroundUniformValues(values, texsize, pixelsToGLUnits, tile, state),
                      bucket.icon,
                      values);
             }
@@ -97,16 +97,16 @@ void Painter::renderSymbol(PaintParameters& parameters,
 
         const Size texsize = glyphAtlas->getSize();
 
-        if (values.hasHalo()) {
+        if (values.hasHalo) {
             draw(parameters.programs.symbolGlyph,
-                 SymbolSDFProgram::haloUniformValues(values, texsize, pixelsToGLUnits, tile, state, frame.pixelRatio),
+                 SymbolSDFProgram::haloUniformValues(values, texsize, pixelsToGLUnits, tile, state),
                  bucket.text,
                  values);
         }
 
-        if (values.hasForeground()) {
+        if (values.hasFill) {
             draw(parameters.programs.symbolGlyph,
-                 SymbolSDFProgram::foregroundUniformValues(values, texsize, pixelsToGLUnits, tile, state, frame.pixelRatio),
+                 SymbolSDFProgram::foregroundUniformValues(values, texsize, pixelsToGLUnits, tile, state),
                  bucket.text,
                  values);
         }

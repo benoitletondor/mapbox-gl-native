@@ -21,24 +21,14 @@ public:
     float layoutSize;
 
     // Paint
-    float opacity;
-    Color color;
-    Color haloColor;
-    float haloWidth;
-    float haloBlur;
     std::array<float, 2> translate;
     TranslateAnchorType translateAnchor;
     float paintSize;
 
     float sdfScale;   // Constant (1.0 or 24.0)
-
-    bool hasHalo() const {
-        return haloColor.a > 0.0f && haloWidth > 0.0f;
-    }
-
-    bool hasForeground() const {
-        return color.a > 0.0f;
-    }
+    
+    bool hasHalo;
+    bool hasFill;
 };
 
 class SymbolLayer::Impl : public Layer::Impl {
