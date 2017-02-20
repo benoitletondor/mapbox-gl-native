@@ -16,7 +16,7 @@
 			<string>%d градус</string>
 			<key>few</key>
 			<string>%d градуса</string>
-			<key>other</key>
+			<key>many</key>
 			<string>%d градусов</string>
 		</dict>
 	</dict>
@@ -34,7 +34,7 @@
 			<string>%d минута</string>
 			<key>few</key>
 			<string>%d минуты</string>
-			<key>other</key>
+			<key>many</key>
 			<string>%d минут</string>
 		</dict>
 	</dict>
@@ -52,7 +52,7 @@
 			<string>%d секунда</string>
 			<key>few</key>
 			<string>%d секунды</string>
-			<key>other</key>
+			<key>many</key>
 			<string>%d секунд</string>
 		</dict>
 	</dict>
